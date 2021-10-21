@@ -1,10 +1,15 @@
-package agh.cs.oop.lab1
+package agh.cs.oop
 
 fun main(args: Array<String>) {
     println("start")
-    run(arrayOf("f", "b", "l", "r", "ssdklfjladsf"))
     run2(arrayOf(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST))
-    println("koniec")
+
+    var vec = Vector2d(1,2)
+    println(vec.x)
+    println(vec.y)
+
+    println(vec)
+
 }
 
 fun run(str: Array<String>) {
