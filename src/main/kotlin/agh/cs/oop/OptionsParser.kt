@@ -6,11 +6,11 @@ class OptionsParser {
             return message
                 .split(' ')
                 .map {
-                    when (it.lowercase()[0]){
-                        'f' -> MoveDirection.FORWARD
-                        'b' -> MoveDirection.BACKWARD
-                        'r' -> MoveDirection.RIGHT
-                        'l' -> MoveDirection.LEFT
+                    when (it.lowercase()){
+                        "f","forward"  -> MoveDirection.FORWARD
+                        "b","backward" -> MoveDirection.BACKWARD
+                        "r","right" -> MoveDirection.RIGHT
+                        "l","left" -> MoveDirection.LEFT
                         else -> {}
                     }
                 }
