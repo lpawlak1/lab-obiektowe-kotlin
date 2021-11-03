@@ -7,6 +7,12 @@ open class Animal {
     var direction: MapDirection = MapDirection.NORTH
         private set
 
+    constructor(position: Vector2d) {
+        this.position = position
+    }
+
+    constructor()
+
 
     override fun toString(): String {
         return "Animal(position=$position, direction=$direction)"
@@ -30,6 +36,10 @@ open class Animal {
             MoveDirection.RIGHT -> direction = direction.next()
             MoveDirection.LEFT -> direction = direction.previous()
         }
+    }
+
+    fun isAt(position : Vector2d) : Boolean {
+        return this.position == position
     }
 
     private fun canMoveTo(newPosition: Vector2d): Boolean {

@@ -3,6 +3,9 @@ package agh.cs.oop
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 internal class AnimalTest {
     private lateinit var ez: Animal
@@ -48,5 +51,11 @@ internal class AnimalTest {
         }
         Assertions.assertEquals(animal.direction, MapDirection.NORTH)
         Assertions.assertEquals(animal.position, Vector2d(3, 2))
+    }
+
+    @Test
+    fun isAt() {
+        assertTrue(Animal(Vector2d(2,3)).isAt(Vector2d(2,3)))
+        assertFalse(Animal(Vector2d(3,9)).isAt(Vector2d(2,3)))
     }
 }
