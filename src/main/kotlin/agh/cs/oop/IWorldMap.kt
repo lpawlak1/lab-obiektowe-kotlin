@@ -44,4 +44,12 @@ interface IWorldMap {
      * @return Object or null if the position is not occupied.
      */
     fun objectAt(position: Vector2d?): Any?
+
+
+    /**
+     * Added this function to effortlessly move animals in hashmap
+     * @param oldPosition is position that animal was
+     * @param animal is object of animal to be moved
+     */
+    fun moveAnimal(oldPosition : Vector2d, animal: Animal)
 }

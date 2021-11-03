@@ -1,12 +1,12 @@
 package agh.cs.oop
 
+
 fun main(args: Array<String>) {
-
-    var animal1: Animal = Animal()
-
-    OptionsParser.parse("f f b p r o l l r b lk").forEach {
-        animal1.move(it)
-        println(animal1)
-    }
-
+    val args = "f b r l f f r r f f f f f f f f"
+    val directions: Iterable<MoveDirection> = OptionsParser.parse(args)
+    val map: IWorldMap = RectangularMap(10, 5)
+    val positions = listOf(Vector2d(2, 2), Vector2d(3, 4))
+    val engine: IEngine = SimulationEngine(directions, map, positions)
+    engine.run()
+    print(map.toString())
 }

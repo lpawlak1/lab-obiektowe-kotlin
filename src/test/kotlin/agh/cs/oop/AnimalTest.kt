@@ -11,7 +11,7 @@ internal class AnimalTest {
     private lateinit var ez: Animal
     @BeforeEach
     fun animalFactory() {
-        ez = Animal()
+        ez = Animal(Vector2d(2,2))
     }
 
     @Test
@@ -19,7 +19,7 @@ internal class AnimalTest {
 // Prawo i lewo
         ez!!.move(MoveDirection.LEFT)
         ez!!.move(MoveDirection.RIGHT)
-        Assertions.assertEquals(ez, Animal())
+        Assertions.assertEquals(ez, Animal(Vector2d(2,2)))
         ez!!.move(MoveDirection.RIGHT)
         Assertions.assertEquals(ez.direction, MapDirection.EAST)
         ez!!.move(MoveDirection.FORWARD)
@@ -45,7 +45,7 @@ internal class AnimalTest {
         tab[5] = "l"
         tab[6] = "b"
         val elems: Iterable<MoveDirection> = OptionsParser.parse(tab.joinToString(separator=" "))
-        val animal = Animal()
+        val animal = Animal(Vector2d(2,2))
         for (elem in elems) {
             animal.move(elem)
         }

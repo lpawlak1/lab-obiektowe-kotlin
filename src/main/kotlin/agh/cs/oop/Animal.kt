@@ -1,21 +1,34 @@
 package agh.cs.oop
 
-open class Animal {
+class Animal {
     var position: Vector2d = Vector2d(2,2)
-        private set
+        private set(e) {
+            val oldPos : Vector2d = position
+            field = e
+            map?.moveAnimal(oldPos,this)
+        }
 
     var direction: MapDirection = MapDirection.NORTH
         private set
+
+    private var map : IWorldMap? = null
 
     constructor(position: Vector2d) {
         this.position = position
     }
 
-    constructor()
+    constructor(map: IWorldMap) {
+        this.map = map
+    }
+
+    constructor(position: Vector2d, map: IWorldMap) {
+        this.position = position
+        this.map = map
+    }
 
 
     override fun toString(): String {
-        return "Animal(position=$position, direction=$direction)"
+        return this.direction.toString()
     }
 
     fun move(moveDirection: MoveDirection){
@@ -43,7 +56,10 @@ open class Animal {
     }
 
     private fun canMoveTo(newPosition: Vector2d): Boolean {
-        return newPosition.follows(Vector2d(0,0)) && newPosition.precedes(Vector2d(4,4))
+        return if (this.map is IWorldMap)
+            this.map!!.canMoveTo(newPosition)
+        else
+            newPosition.follows(Vector2d(0,0)) && newPosition.precedes(Vector2d(4,4))
     }
 
     override fun equals(other: Any?): Boolean {
