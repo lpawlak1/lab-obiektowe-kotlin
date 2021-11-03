@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class AnimalTest {
-    private var ez: Animal = Animal()
+    private lateinit var ez: Animal
     @BeforeEach
-    fun AnimalFactory() {
+    fun animalFactory() {
         ez = Animal()
     }
 

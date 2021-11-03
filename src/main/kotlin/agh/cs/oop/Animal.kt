@@ -2,11 +2,10 @@ package agh.cs.oop
 
 open class Animal {
     var position: Vector2d = Vector2d(2,2)
-        private set(value) {field = value}
+        private set
 
     var direction: MapDirection = MapDirection.NORTH
-        private set(value) {field = value}
-
+        private set
 
 
     override fun toString(): String {
