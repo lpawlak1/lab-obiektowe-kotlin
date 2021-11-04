@@ -21,18 +21,19 @@ class MapVisualizer
      * @return String representation of the selected region of the map.
      */
     fun draw(lowerLeft: Vector2d, upperRight: Vector2d): String {
+        val (left, bottom) = lowerLeft
+        val (right, top) = upperRight
+
         val builder = StringBuilder()
-        for (i in upperRight.y + 1 downTo lowerLeft.y - 1) {
-            if (i == upperRight.y + 1) {
-                builder.append(drawHeader(lowerLeft, upperRight))
-            }
+        builder.append(drawHeader(lowerLeft, upperRight))
+        for (i in top + 1 downTo bottom - 1) {
             builder.append(String.format("%3d: ", i))
-            for (j in lowerLeft.x..upperRight.x + 1) {
-                if (i < lowerLeft.y || i > upperRight.y) {
-                    builder.append(drawFrame(j <= upperRight.x))
+            for (j in left..right + 1) {
+                if (i < bottom || i > top) {
+                    builder.append(drawFrame(j <= right))
                 } else {
                     builder.append(CELL_SEGMENT)
-                    if (j <= upperRight.x) {
+                    if (j <= right) {
                         builder.append(drawObject(Vector2d(j, i)))
                     }
                 }
@@ -42,13 +43,10 @@ class MapVisualizer
         return builder.toString()
     }
 
-    private fun drawFrame(innerSegment: Boolean): String {
-        return if (innerSegment) {
-            FRAME_SEGMENT + FRAME_SEGMENT
-        } else {
-            FRAME_SEGMENT
-        }
-    }
+    private fun drawFrame(innerSegment: Boolean): String =
+        if(innerSegment) FRAME_SEGMENT + FRAME_SEGMENT else FRAME_SEGMENT
+
+
 
     private fun drawHeader(lowerLeft: Vector2d, upperRight: Vector2d): String {
         val builder = StringBuilder()
@@ -60,16 +58,8 @@ class MapVisualizer
         return builder.toString()
     }
 
-    private fun drawObject(currentPosition: Vector2d): String? {
-        var result: String? = null
-        result = if (map.isOccupied(currentPosition)) {
-            val `object` = map.objectAt(currentPosition)
-            `object`?.toString() ?: EMPTY_CELL
-        } else {
-            EMPTY_CELL
-        }
-        return result
-    }
+    private fun drawObject(currentPosition: Vector2d): String =
+        map.objectAt(currentPosition)?.toString() ?: EMPTY_CELL
 
     companion object {
         private const val EMPTY_CELL = " "

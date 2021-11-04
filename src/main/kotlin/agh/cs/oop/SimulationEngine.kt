@@ -1,25 +1,10 @@
 package agh.cs.oop
 
-class SimulationEngine : IEngine {
-    private val moveArray: Iterable<MoveDirection>
-    private val map: IWorldMap
-    private val vectors: Iterable<Vector2d>
-
-    constructor(moveArray: Iterable<MoveDirection>, map: IWorldMap, vectors: Collection<Vector2d>) {
-        this.moveArray = moveArray
-        this.map = map
-        this.vectors = vectors
-    }
+class SimulationEngine(private val moveArray: Iterable<MoveDirection>, private val map: IWorldMap) : IEngine {
 
     override fun run() {
-        var animals: MutableList<Animal> = mutableListOf<Animal>()
-        for (elem in this.vectors) {
-            val anim = Animal(map = map, position = elem)
-            if (map.place(anim))
-                animals.add(anim)
-        }
-
-        if (animals.size == 0) {
+        val animals = map.animals()
+        if (animals.isEmpty()) {
             throw Exception("Error in animal size (0), maybe wrong vectors")
         }
 

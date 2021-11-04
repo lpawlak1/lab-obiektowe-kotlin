@@ -14,7 +14,7 @@ interface IWorldMap {
      * The position checked for the movement possibility.
      * @return True if the object can move to that position.
      */
-    fun canMoveTo(position: Vector2d?): Boolean
+    fun canMoveTo(position: Vector2d): Boolean
 
     /**
      * Place a animal on the map.
@@ -23,7 +23,7 @@ interface IWorldMap {
      * The animal to place on the map.
      * @return True if the animal was placed. The animal cannot be placed if the map is already occupied.
      */
-    fun place(animal: Animal?): Boolean
+    fun place(animal: Animal): Boolean
 
     /**
      * Return true if given position on the map is occupied. Should not be
@@ -34,7 +34,7 @@ interface IWorldMap {
      * Position to check.
      * @return True if the position is occupied.
      */
-    fun isOccupied(position: Vector2d?): Boolean
+    fun isOccupied(position: Vector2d): Boolean
 
     /**
      * Return an object at a given position.
@@ -43,5 +43,12 @@ interface IWorldMap {
      * The position of the object.
      * @return Object or null if the position is not occupied.
      */
-    fun objectAt(position: Vector2d?): Any?
+    fun objectAt(position: Vector2d): Any?
+
+    /**
+     * Return the collection of animals present on the map.
+     *
+     * @return List of animals.
+     */
+    fun animals(): List<Animal>
 }
