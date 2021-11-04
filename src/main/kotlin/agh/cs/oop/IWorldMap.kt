@@ -51,5 +51,5 @@ interface IWorldMap {
      * @param oldPosition is position that animal was
      * @param animal is object of animal to be moved
      */
-    fun moveAnimal(oldPosition : Vector2d, animal: Animal)
+    fun moveAnimal(oldPosition: Vector2d, animal: Animal)
 }
