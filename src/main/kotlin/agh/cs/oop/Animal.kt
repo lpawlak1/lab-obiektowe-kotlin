@@ -5,7 +5,6 @@ class Animal {
         private set(e) {
             val oldPos: Vector2d = position
             field = e
-            map?.moveAnimal(oldPos, this)
         }
 
     var direction: MapDirection = MapDirection.NORTH
