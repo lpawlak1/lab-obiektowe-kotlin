@@ -1,6 +1,10 @@
 package agh.cs.oop
 
-class Animal {
+class Animal(private val map: IWorldMap) {
+    constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
+        this.position = position
+    }
+
     var position: Vector2d = Vector2d(2, 2)
         private set(e) {
             val oldPos: Vector2d = position
@@ -10,20 +14,6 @@ class Animal {
     var direction: MapDirection = MapDirection.NORTH
         private set
 
-    private var map: IWorldMap? = null
-
-    constructor(position: Vector2d) {
-        this.position = position
-    }
-
-    constructor(map: IWorldMap) {
-        this.map = map
-    }
-
-    constructor(position: Vector2d, map: IWorldMap) {
-        this.position = position
-        this.map = map
-    }
 
 
     override fun toString(): String {
@@ -56,7 +46,7 @@ class Animal {
 
     private fun canMoveTo(newPosition: Vector2d): Boolean {
         return if (this.map is IWorldMap)
-            this.map!!.canMoveTo(newPosition)
+            this.map.canMoveTo(newPosition)
         else
             newPosition.follows(Vector2d(0, 0)) && newPosition.precedes(Vector2d(4, 4))
     }
