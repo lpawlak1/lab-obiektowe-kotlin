@@ -1,44 +1,32 @@
 package agh.cs.oop
 
-// Utwórz typ wyliczeniowy MapDirection z czterema kierunkami: NORTH, SOUTH, WEST, EAST, który:
-// posiada metodę toString, która dla kierunku EAST zwraca łańcuch Wschód, dla WEST - Zachód, itd.
-// posiada metodę next, która dla kierunku EAST zwraca SOUTH (kolejny kierunek zgodnie z ruchem wskazówek zegara), itd.
-// posiada metodę previous, która dla kierunku EAST zwraca NORTH (kolejny kierunek zgodnie z ruchem przeciwnym do ruchu wskazówek zegara), itd.
-// posiada metodę toUnitVector, która zwraca jednostkowy wektor przemieszczenia typu Vector2d zgodny z orientacją na mapie, tzn. dla NORTH wektor ten powinien mieć wartość (0,1), dla EAST (1,0), itd.
+enum class MapDirection {
+    NORTH{
+        override fun toUnitVector(): Vector2d = Vector2d(0,1)
+        override fun toString(): String = "^"
+        override fun next(): MapDirection = EAST
+        override fun previous(): MapDirection = WEST
+    },
+    EAST{
+        override fun toUnitVector(): Vector2d = Vector2d(1,0)
+        override fun toString(): String = ">"
+        override fun next(): MapDirection = SOUTH
+        override fun previous(): MapDirection = NORTH
+    },
+    SOUTH{
+        override fun toUnitVector(): Vector2d = Vector2d(0,-1)
+        override fun toString(): String = "v"
+        override fun next(): MapDirection = WEST
+        override fun previous(): MapDirection = EAST
+    },
+    WEST{
+        override fun toUnitVector(): Vector2d = Vector2d(-1,0)
+        override fun toString(): String = "<"
+        override fun next(): MapDirection = NORTH
+        override fun previous(): MapDirection = SOUTH
+    };
 
-enum class MapDirection(private val realName: String, private val x: Int, private val y: Int) {
-    NORTH("^", 0, 1),
-    EAST(">", 1, 0),
-    WEST("<", -1, 0),
-    SOUTH("v", 0, -1);
-
-    override fun toString(): String {
-        return this.realName
-    }
-
-    fun next(): MapDirection {
-        var ret: MapDirection? = null
-        ret = when (this) {
-            NORTH -> EAST
-            SOUTH -> WEST
-            WEST -> NORTH
-            EAST -> SOUTH
-        }
-        return ret
-    }
-
-    fun previous(): MapDirection {
-        var ret: MapDirection? = null
-        ret = when (this) {
-            NORTH -> WEST
-            SOUTH -> EAST
-            WEST -> SOUTH
-            EAST -> NORTH
-        }
-        return ret
-    }
-
-    fun toUnitVector(): Vector2d {
-        return Vector2d(this.x, this.y)
-    }
+    abstract fun next(): MapDirection
+    abstract fun previous(): MapDirection
+    abstract fun toUnitVector(): Vector2d
 }

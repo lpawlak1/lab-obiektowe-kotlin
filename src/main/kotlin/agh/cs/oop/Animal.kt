@@ -6,30 +6,27 @@ class Animal(private val map: IWorldMap) {
     }
 
     var position: Vector2d = Vector2d(2, 2)
-        private set(e) {
-            val oldPos: Vector2d = position
-            field = e
-        }
+        private set
 
     var direction: MapDirection = MapDirection.NORTH
         private set
 
+    fun isAt(position: Vector2d): Boolean = this.position == position
 
+    private fun canMoveTo(newPosition: Vector2d): Boolean = this.map.canMoveTo(newPosition)
 
-    override fun toString(): String {
-        return this.direction.toString()
-    }
+    override fun toString(): String = this.direction.toString()
 
     fun move(moveDirection: MoveDirection) {
         when (moveDirection) {
             MoveDirection.FORWARD -> {
-                val newPosition = position.add(direction.toUnitVector())
+                val newPosition = position + direction.toUnitVector()
 
                 if (canMoveTo(newPosition))
                     position = newPosition
             }
             MoveDirection.BACKWARD -> {
-                val newPosition = position.add(direction.toUnitVector().opposite())
+                val newPosition = position - direction.toUnitVector()
 
                 if (canMoveTo(newPosition))
                     position = newPosition
@@ -38,17 +35,6 @@ class Animal(private val map: IWorldMap) {
             MoveDirection.RIGHT -> direction = direction.next()
             MoveDirection.LEFT -> direction = direction.previous()
         }
-    }
-
-    fun isAt(position: Vector2d): Boolean {
-        return this.position == position
-    }
-
-    private fun canMoveTo(newPosition: Vector2d): Boolean {
-        return if (this.map is IWorldMap)
-            this.map.canMoveTo(newPosition)
-        else
-            newPosition.follows(Vector2d(0, 0)) && newPosition.precedes(Vector2d(4, 4))
     }
 
     override fun equals(other: Any?): Boolean {
@@ -68,6 +54,4 @@ class Animal(private val map: IWorldMap) {
         result = 31 * result + direction.hashCode()
         return result
     }
-
-
 }

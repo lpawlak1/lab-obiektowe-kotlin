@@ -7,10 +7,6 @@ import org.junit.jupiter.api.Assertions.*
 internal class MapDirectionTest {
 
     @Test
-    fun testToString() {
-    }
-
-    @Test
     fun next() {
         assertEquals(MapDirection.NORTH.next(), MapDirection.EAST)
         assertEquals(MapDirection.EAST.next(), MapDirection.SOUTH)

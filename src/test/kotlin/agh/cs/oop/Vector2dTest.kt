@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class Vector2dTest {
@@ -20,8 +21,8 @@ class Vector2dTest {
 
     @Test
     fun equalsTest() {
-        assertTrue(vector_2_2.equals(vector_2_2a))
-        assertFalse(vector_2_2.equals(vector_1_2))
+        assertEquals(vector_2_2, vector_2_2a)
+        assertNotEquals(vector_2_2, vector_1_2)
     }
 
     @Test
@@ -61,14 +62,14 @@ class Vector2dTest {
 
     @Test
     fun addTest() {
-        assertEquals(vector_2_2a, vector_1_2.add(Vector2d(1, 0)))
-        assertEquals(Vector2d(-1, -5), vector_1_2.add(Vector2d(-2, -7)))
+        assertEquals(vector_2_2a, vector_1_2 + Vector2d(1, 0))
+        assertEquals(Vector2d(-1, -5), vector_1_2 + Vector2d(-2, -7))
     }
 
     @Test
     fun subtractTest() {
-        assertEquals(vector_2_2a, vector_1_2.substract(Vector2d(-1, 0)))
-        assertEquals(Vector2d(-1, -5), vector_1_2.substract(Vector2d(2, 7)))
+        assertEquals(vector_2_2a, vector_1_2 -Vector2d(-1, 0))
+        assertEquals(Vector2d(-1, -5), vector_1_2 - Vector2d(2, 7))
     }
 
     @Test
