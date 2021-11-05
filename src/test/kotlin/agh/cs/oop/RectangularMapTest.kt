@@ -50,9 +50,9 @@ internal class RectangularMapTest {
      */
     @Test
     fun `integration test of moveAnimal`() {
-        val animal_stationary_1_1 = Animal(Vector2d(1,1),map)
+        val animal_stationary_1_1 = Animal(map,Vector2d(1,1))
         assertTrue(map.place(animal_stationary_1_1))
-        val animal_moving = Animal(Vector2d(1,0), map)
+        val animal_moving = Animal(map, Vector2d(1,0))
         assertTrue(map.place(animal_moving))
 
         animal_moving.move(MoveDirection.FORWARD)
