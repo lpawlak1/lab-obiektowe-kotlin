@@ -1,5 +1,7 @@
 package agh.cs.oop
 
+import java.util.*
+
 class Animal(private val map: IWorldMap) {
     constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
         this.position = position
@@ -31,27 +33,15 @@ class Animal(private val map: IWorldMap) {
                 if (canMoveTo(newPosition))
                     position = newPosition
             }
-
             MoveDirection.RIGHT -> direction = direction.next()
             MoveDirection.LEFT -> direction = direction.previous()
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+    override fun equals(other: Any?): Boolean =
+        other is Animal && position == other.position && direction == other.direction
 
-        other as Animal
+    override fun hashCode(): Int =
+        Objects.hash(position, direction)
 
-        if (position != other.position) return false
-        if (direction != other.direction) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = position.hashCode()
-        result = 31 * result + direction.hashCode()
-        return result
-    }
 }
