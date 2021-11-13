@@ -18,11 +18,11 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 }
 
-tasks.test {
+test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile>() {
+withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
 }
 
