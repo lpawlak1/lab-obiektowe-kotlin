@@ -29,4 +29,12 @@ internal class MapDirectionTest {
         assertEquals(Vector2d(-1,0), MapDirection.WEST.toUnitVector())
         assertEquals(Vector2d(0,-1), MapDirection.SOUTH.toUnitVector())
     }
+
+    @Test
+    fun `to string`() {
+        assertEquals("^", MapDirection.NORTH.toString())
+        assertEquals(">", MapDirection.EAST.toString())
+        assertEquals("<", MapDirection.WEST.toString())
+        assertEquals("v", MapDirection.SOUTH.toString())
+    }
 }

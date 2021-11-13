@@ -15,6 +15,9 @@ internal class RectangularMapTest {
 
     @Test
     fun canMoveTo() {
+        map.place(Animal(map, Vector2d(1,1)))
+        assertFalse(map.canMoveTo(Vector2d(1,1)))
+        assertTrue(map.canMoveTo(Vector2d(1,2)))
 
     }
 
@@ -35,7 +38,6 @@ internal class RectangularMapTest {
         map.place(animal_1_1)
         assertTrue(map.isOccupied(Vector2d(1,1)),"Smth terribly wrong")
         assertFalse(map.isOccupied(Vector2d(2,4)), "There's shouldn't be any objects")
-
     }
 
     @Test

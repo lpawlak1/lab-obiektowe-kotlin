@@ -2,12 +2,12 @@ package agh.cs.oop
 
 import java.util.*
 
-class Animal(private val map: IWorldMap) {
+class Animal(private val map: IWorldMap) : IElement {
     constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
         this.position = position
     }
 
-    var position: Vector2d = Vector2d(2, 2)
+    override var position: Vector2d = Vector2d(2, 2)
         private set
 
     var direction: MapDirection = MapDirection.NORTH
