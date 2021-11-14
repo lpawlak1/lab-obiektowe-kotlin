@@ -75,7 +75,7 @@ internal class GrassFieldTest {
         var animal_1_1 = Animal(map = map, position = Vector2d(1,1))
         map.place(animal_1_1)
         assertTrue(map.isOccupied(Vector2d(1,1)),"Smth terribly wrong")
-        assertFalse(map.isOccupied(Vector2d(2,4)), "There's shouldn't be any objects")
+        assertFalse(map.isOccupied(Vector2d(2,4)) && map.objectAt(Vector2d(2,4))?.javaClass == Animal::class.java , "There's shouldn't be an Animal")
 
     }
 
