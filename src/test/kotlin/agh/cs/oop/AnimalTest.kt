@@ -12,15 +12,15 @@ internal class AnimalTest {
 
     @Test
     fun moveTest() {
-        val mockMap : IWorldMap = mock()
+        val mockMap: IWorldMap = mock()
         whenever(mockMap.canMoveTo(any())).thenReturn(true)
 
-        val ez = Animal(position = Vector2d(2,2), map = mockMap)
+        val ez = Animal(position = Vector2d(2, 2), map = mockMap)
 
         ez.move(MoveDirection.LEFT)
         Assertions.assertEquals(ez.direction, MapDirection.WEST)
         ez.move(MoveDirection.RIGHT)
-        Assertions.assertEquals(ez, Animal(mockMap, Vector2d(2,2)))
+        Assertions.assertEquals(ez, Animal(mockMap, Vector2d(2, 2)))
         ez.move(MoveDirection.RIGHT)
         Assertions.assertEquals(ez.direction, MapDirection.EAST)
         ez.move(MoveDirection.FORWARD)
@@ -29,10 +29,10 @@ internal class AnimalTest {
 
     @Test
     fun isAt() {
-        val mockMap : IWorldMap = mock()
+        val mockMap: IWorldMap = mock()
         whenever(mockMap.canMoveTo(any())).thenReturn(true)
 
-        assertTrue(Animal(mockMap, Vector2d(2,3)).isAt(Vector2d(2,3)))
-        assertFalse(Animal(mockMap, Vector2d(3,9)).isAt(Vector2d(2,3)))
+        assertTrue(Animal(mockMap, Vector2d(2, 3)).isAt(Vector2d(2, 3)))
+        assertFalse(Animal(mockMap, Vector2d(3, 9)).isAt(Vector2d(2, 3)))
     }
 }

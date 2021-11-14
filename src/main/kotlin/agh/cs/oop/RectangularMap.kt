@@ -1,7 +1,7 @@
 package agh.cs.oop
 
 
-class RectangularMap(private val width: Int, private val height: Int) : AbstractorWorldMap(){
+class RectangularMap(private val width: Int, private val height: Int) : AbstractorWorldMap() {
     override val visualizer = MapVisualizer(this)
 
     override fun canMoveTo(position: Vector2d): Boolean {

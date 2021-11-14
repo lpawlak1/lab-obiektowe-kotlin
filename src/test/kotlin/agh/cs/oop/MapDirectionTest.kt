@@ -1,8 +1,7 @@
 package agh.cs.oop
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class MapDirectionTest {
 
@@ -24,10 +23,10 @@ internal class MapDirectionTest {
 
     @Test
     fun toUnitVector() {
-        assertEquals(Vector2d(0,1), MapDirection.NORTH.toUnitVector())
+        assertEquals(Vector2d(0, 1), MapDirection.NORTH.toUnitVector())
         assertEquals(Vector2d(1, 0), MapDirection.EAST.toUnitVector())
-        assertEquals(Vector2d(-1,0), MapDirection.WEST.toUnitVector())
-        assertEquals(Vector2d(0,-1), MapDirection.SOUTH.toUnitVector())
+        assertEquals(Vector2d(-1, 0), MapDirection.WEST.toUnitVector())
+        assertEquals(Vector2d(0, -1), MapDirection.SOUTH.toUnitVector())
     }
 
     @Test

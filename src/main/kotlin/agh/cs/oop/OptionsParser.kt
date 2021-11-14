@@ -1,7 +1,7 @@
 package agh.cs.oop
 
 class OptionsParser {
-    companion object{
+    companion object {
         fun parse(message: String): Iterable<MoveDirection> {
             return message
                 .split(' ')

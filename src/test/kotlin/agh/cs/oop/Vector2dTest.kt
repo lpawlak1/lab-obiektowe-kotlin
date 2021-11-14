@@ -68,7 +68,7 @@ class Vector2dTest {
 
     @Test
     fun subtractTest() {
-        assertEquals(vector_2_2a, vector_1_2 -Vector2d(-1, 0))
+        assertEquals(vector_2_2a, vector_1_2 - Vector2d(-1, 0))
         assertEquals(Vector2d(-1, -5), vector_1_2 - Vector2d(2, 7))
     }
 
