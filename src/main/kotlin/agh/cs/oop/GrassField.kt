@@ -4,6 +4,8 @@ import kotlin.math.sqrt
 import kotlin.random.Random
 
 class GrassField(private val n: Int) : AbstractorWorldMap() {
+    protected val grassMap: HashMap<Vector2d, Grass> = hashMapOf()
+
     override val visualizer: MapVisualizer = MapVisualizer(this)
 
     init {
@@ -13,14 +15,19 @@ class GrassField(private val n: Int) : AbstractorWorldMap() {
             val vec = Vector2d(Random.nextInt(maxi), Random.nextInt(maxi))
             if (!isOccupied(vec)) {
                 i++
-                super.objectList.add(Grass(vec))
+                this.grassMap[vec] = Grass(vec)
+                lowerLeftVector = lowerLeftVector.lowerLeft(vec)
+                upperRightVector = upperRightVector.upperRight(vec)
             }
         }
     }
 
+    override fun isOccupied(position: Vector2d): Boolean {
+        return super.isOccupied(position) || this.grassMap.containsKey(position)
+    }
+
     override fun objectAt(position: Vector2d): Any? {
-        return objectList.firstOrNull { it.position == position && it.javaClass == Animal::class.java}
-            ?: objectList.firstOrNull { it.position == position}
+        return super.objectAt(position) ?: this.grassMap[position]
     }
 
 }

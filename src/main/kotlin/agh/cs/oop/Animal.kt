@@ -1,14 +1,20 @@
 package agh.cs.oop
 
 import java.util.*
+import kotlin.properties.Delegates
 
 class Animal(private val map: IWorldMap) : IElement {
+    val moveObservers = mutableListOf<(Vector2d, Vector2d) -> Unit>()
+
+    override var position: Vector2d by Delegates.observable(Vector2d(2, 2)) { _, o, i ->
+        moveObservers.forEach { it(o, i) }
+    }
+        private set
+
     constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
         this.position = position
     }
 
-    override var position: Vector2d = Vector2d(2, 2)
-        private set
 
     var direction: MapDirection = MapDirection.NORTH
         private set
