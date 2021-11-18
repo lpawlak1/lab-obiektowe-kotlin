@@ -4,7 +4,7 @@ import kotlin.math.sqrt
 import kotlin.random.Random
 
 class GrassField(private val n: Int) : AbstractorWorldMap() {
-    protected val grassMap: HashMap<Vector2d, Grass> = hashMapOf()
+    private val grassMap: HashMap<Vector2d, Grass> = hashMapOf()
 
     override val visualizer: MapVisualizer = MapVisualizer(this)
 

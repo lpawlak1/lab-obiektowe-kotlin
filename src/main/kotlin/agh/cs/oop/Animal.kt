@@ -7,7 +7,7 @@ class Animal(private val map: IWorldMap) : IElement {
     val moveObservers = mutableListOf<(Vector2d, Vector2d) -> Unit>()
 
     override var position: Vector2d by Delegates.observable(Vector2d(2, 2)) { _, o, i ->
-        moveObservers.forEach { it(o, i) }
+        for (it in moveObservers) it(o, i)
     }
         private set
 
