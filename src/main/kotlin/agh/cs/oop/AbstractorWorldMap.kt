@@ -1,8 +1,8 @@
 package agh.cs.oop
 
 
-abstract class AbstractorWorldMap : IWorldMap {
-    fun observePosition(old: Vector2d, new: Vector2d): Unit {
+abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
+    override fun observePosition(old: Vector2d, new: Vector2d) {
         lowerLeftVector = lowerLeftVector.lowerLeft(new)
         upperRightVector = upperRightVector.upperRight(new)
 
@@ -11,10 +11,12 @@ abstract class AbstractorWorldMap : IWorldMap {
         }
     }
 
-    protected val objectsMap: HashMap<Vector2d, IElement> = hashMapOf()
+    private val objectsMap: HashMap<Vector2d, IElement> = hashMapOf()
+//    TODO("use mapboundary tutaj")
+    protected val mapBoundary: MapBoundary = MapBoundary()
 
-    protected var lowerLeftVector = Vector2d(2,2)
-    protected var upperRightVector = Vector2d(2,2)
+    protected var lowerLeftVector = Vector2d(2, 2)
+    protected var upperRightVector = Vector2d(2, 2)
 
     protected abstract val visualizer: MapVisualizer
 
@@ -25,7 +27,8 @@ abstract class AbstractorWorldMap : IWorldMap {
     override fun place(animal: Animal): Boolean {
         if (canMoveTo(animal.position)) {
             objectsMap[animal.position] = animal
-            animal.moveObservers.add(this::observePosition)
+            animal.addObserver(this::observePosition)
+            animal.addObserver(this.mapBoundary::observePosition)
             return true
         }
         return false
@@ -45,11 +48,10 @@ abstract class AbstractorWorldMap : IWorldMap {
 
     /**
      * In this implementation animals shouldn't be used in many cases as its O(n),
-     * where n is number of Animals on map
-     * Used as instead of (is -> as) coz IElements in AbstractorWorldMap is always Animal, nothing else
+     * where n is number of [Animal]s on map
+     * Used as instead of (is -> as) coz [IElement]s in [AbstractorWorldMap] is always [Animal], nothing else
      */
     override fun animals(): List<Animal> {
         return objectsMap.values.toList().map { it as Animal }
     }
-
 }

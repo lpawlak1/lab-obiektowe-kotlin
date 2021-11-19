@@ -3,21 +3,30 @@ package agh.cs.oop
 import java.util.*
 import kotlin.properties.Delegates
 
+/**
+ * Instead of making IPositionChangeObserver in Kotlin we can create typealias telling what function should be sent.
+ * Here is func that takes [Vector2d] twice (being before and after change) and returns [Unit]
+ */
+typealias PositionObserverFunc = (Vector2d, Vector2d) -> Unit
+
 class Animal(private val map: IWorldMap) : IElement {
-    val moveObservers = mutableListOf<(Vector2d, Vector2d) -> Unit>()
+    constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
+        this.position = position
+    }
+
+    private val moveObservers = mutableListOf<PositionObserverFunc>()
 
     override var position: Vector2d by Delegates.observable(Vector2d(2, 2)) { _, o, i ->
         for (it in moveObservers) it(o, i)
     }
         private set
-
-    constructor(map: IWorldMap, position: Vector2d) : this(map = map) {
-        this.position = position
-    }
-
+    fun addObserver(funkcja: PositionObserverFunc): Boolean = this.moveObservers.add(funkcja)
+    fun removeObserver(funkcja: PositionObserverFunc): Boolean = this.moveObservers.remove(funkcja)
 
     var direction: MapDirection = MapDirection.NORTH
         private set
+
+
 
     fun isAt(position: Vector2d): Boolean = this.position == position
 
