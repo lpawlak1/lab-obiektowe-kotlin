@@ -27,7 +27,6 @@ class Animal(private val map: IWorldMap) : IElement {
         private set
 
 
-
     fun isAt(position: Vector2d): Boolean = this.position == position
 
     private fun canMoveTo(newPosition: Vector2d): Boolean = this.map.canMoveTo(newPosition)

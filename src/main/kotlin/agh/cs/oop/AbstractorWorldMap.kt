@@ -2,6 +2,7 @@ package agh.cs.oop
 
 
 abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
+
     override fun observePosition(old: Vector2d, new: Vector2d) {
         lowerLeftVector = lowerLeftVector.lowerLeft(new)
         upperRightVector = upperRightVector.upperRight(new)
@@ -12,7 +13,6 @@ abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
     }
 
     private val objectsMap: HashMap<Vector2d, IElement> = hashMapOf()
-//    TODO("use mapboundary tutaj")
     protected val mapBoundary: MapBoundary = MapBoundary()
 
     protected var lowerLeftVector = Vector2d(2, 2)
