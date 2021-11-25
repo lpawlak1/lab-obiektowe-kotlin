@@ -16,8 +16,7 @@ class GrassField(private val n: Int) : AbstractorWorldMap() {
             if (!isOccupied(vec)) {
                 i++
                 this.grassMap[vec] = Grass(vec)
-                lowerLeftVector = lowerLeftVector.lowerLeft(vec)
-                upperRightVector = upperRightVector.upperRight(vec)
+                mapBoundary.observePosition(Vector2d(0,0), vec)
             }
         }
     }

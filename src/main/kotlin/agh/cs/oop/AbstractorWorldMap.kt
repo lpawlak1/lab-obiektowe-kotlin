@@ -4,9 +4,6 @@ package agh.cs.oop
 abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
 
     override fun observePosition(old: Vector2d, new: Vector2d) {
-        lowerLeftVector = lowerLeftVector.lowerLeft(new)
-        upperRightVector = upperRightVector.upperRight(new)
-
         objectsMap.remove(old)?.let {
             objectsMap.put(new, it)
         }
@@ -14,9 +11,6 @@ abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
 
     private val objectsMap: HashMap<Vector2d, IElement> = hashMapOf()
     protected val mapBoundary: MapBoundary = MapBoundary()
-
-    protected var lowerLeftVector = Vector2d(2, 2)
-    protected var upperRightVector = Vector2d(2, 2)
 
     protected abstract val visualizer: MapVisualizer
 
@@ -43,7 +37,7 @@ abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
     }
 
     override fun toString(): String {
-        return visualizer.draw(lowerLeftVector, upperRightVector)
+        return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight())
     }
 
     /**
