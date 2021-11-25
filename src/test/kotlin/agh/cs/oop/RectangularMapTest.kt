@@ -3,6 +3,7 @@ package agh.cs.oop
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFailsWith
 
 internal class RectangularMapTest {
 
@@ -27,9 +28,9 @@ internal class RectangularMapTest {
         assertTrue(map.place(animal_1_1), "Coudn't place animal")
 
         var animal_1_1__2 = Animal(map = map, position = Vector2d(1, 1))
-        assertFalse(map.place(animal_1_1__2), "Added animal even though other animal was in there")
-//        assertTrue(map.isOccupied(Vector2d(1,1)),"Smth terribly wrong")
-
+        assertFailsWith(IllegalArgumentException::class, message="Added animal even though other animal was in there") {
+            map.place(animal_1_1__2)
+        }
     }
 
     @Test

@@ -1,14 +1,16 @@
 package agh.cs.oop
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import kotlin.test.assertFailsWith
 
 internal class OptionParserTest {
 
     @Test
     fun `parse test`() {
-        assertFalse(listOf(OptionsParser.parse("e s s a")).equals(listOf<Any>()))
+        assertFalse(listOf(OptionsParser.parse("")).equals(listOf<Any>()))
+
         assertEquals(
             listOf<MoveDirection>(
                 MoveDirection.LEFT,
@@ -16,8 +18,13 @@ internal class OptionParserTest {
                 MoveDirection.BACKWARD,
                 MoveDirection.FORWARD
             ),
-            OptionsParser.parse("l r b f ll").toList()
+            OptionsParser.parse("l r b f").toList()
         )
-        assertEquals(listOf(MoveDirection.LEFT), OptionsParser.parse(" l   t "))
+        assertEquals(listOf(MoveDirection.LEFT), OptionsParser.parse("l"))
+
+        val essa_message = "e s s a"
+        assertFailsWith(IllegalArgumentException::class, message="This should parse as good as elem inside was: $essa_message") {
+            OptionsParser.parse(essa_message)
+        }
     }
 }

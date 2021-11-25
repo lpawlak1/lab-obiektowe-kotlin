@@ -25,7 +25,7 @@ abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
             animal.addObserver(this.mapBoundary::observePosition)
             return true
         }
-        return false
+        throw IllegalArgumentException("$animal can't be placed")
     }
 
     override fun isOccupied(position: Vector2d): Boolean {

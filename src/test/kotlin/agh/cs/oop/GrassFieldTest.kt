@@ -3,6 +3,7 @@ package agh.cs.oop
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.math.sqrt
+import kotlin.test.assertFailsWith
 
 internal class GrassFieldTest {
     /**
@@ -38,7 +39,7 @@ internal class GrassFieldTest {
     fun canMoveTo() {
         val map = GrassField(10)
 
-        map.place(Animal(map, Vector2d(1, 1)))
+        assertTrue(map.place(Animal(map, Vector2d(1, 1))))
         assertFalse(map.canMoveTo(Vector2d(1, 1)))
 
         assertTrue(map.canMoveTo(Vector2d(1, 2)))
@@ -63,7 +64,10 @@ internal class GrassFieldTest {
         assertTrue(map.place(animal_1_1), "Coudn't place animal")
 
         var animal_1_1__2 = Animal(map = map, position = Vector2d(1, 1))
-        assertFalse(map.place(animal_1_1__2), "Added animal even though other animal was in there")
+
+        assertFailsWith(IllegalArgumentException::class, message="Added animal even though other animal was in there") {
+            map.place(animal_1_1__2)
+        }
     }
 
     @Test
