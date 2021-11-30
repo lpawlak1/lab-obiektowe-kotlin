@@ -40,6 +40,19 @@ abstract class AbstractorWorldMap : IWorldMap, IObserver<Vector2d> {
         return visualizer.draw(mapBoundary.lowerLeft(), mapBoundary.upperRight())
     }
 
+    operator fun contains(obj : Any?) : Boolean{
+        return  (obj is IElement && this.isOccupied(obj.position))
+                ||
+                (obj is Vector2d && this.isOccupied(obj))
+    }
+
+    operator fun get(obj: Any?) : Any? {
+        if (obj !is Vector2d)
+            return null
+
+        return this.objectAt(obj)
+    }
+
     /**
      * In this implementation animals shouldn't be used in many cases as its O(n),
      * where n is number of [Animal]s on map

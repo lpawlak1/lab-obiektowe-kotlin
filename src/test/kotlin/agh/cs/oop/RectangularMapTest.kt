@@ -37,15 +37,15 @@ internal class RectangularMapTest {
     fun isOccupied() {
         var animal_1_1 = Animal(map = map, position = Vector2d(1, 1))
         map.place(animal_1_1)
-        assertTrue(map.isOccupied(Vector2d(1, 1)), "Smth terribly wrong")
-        assertFalse(map.isOccupied(Vector2d(2, 4)), "There's shouldn't be any objects")
+        assertTrue(Vector2d(1,1) in map,"Smth terribly wrong")
+        assertFalse(Vector2d(2,4) in map, "There's shouldn't be any objects")
     }
 
     @Test
     fun objectAt() {
         var animal_1_1 = Animal(map = map, position = Vector2d(1, 1))
         map.place(animal_1_1)
-        assertEquals(map.objectAt(position = Vector2d(1, 1)), animal_1_1)
+        assertEquals(map[Vector2d(1,1)], animal_1_1)
     }
 
     /**
@@ -60,7 +60,7 @@ internal class RectangularMapTest {
 
         animal_moving.move(MoveDirection.FORWARD)
 
-        assertTrue(map.objectAt(animal_moving.position) == animal_moving)
+        assertTrue(map[animal_moving.position] == animal_moving)
 
         animal_moving.move(MoveDirection.RIGHT)
         animal_moving.move(MoveDirection.FORWARD)
@@ -68,7 +68,6 @@ internal class RectangularMapTest {
         animal_moving.move(MoveDirection.BACKWARD) //Out of range for move
 
         print(map)
-        assertTrue(map.isOccupied(Vector2d(2, 0)))
-
+        assertTrue(Vector2d(2,0) in map)
     }
 }

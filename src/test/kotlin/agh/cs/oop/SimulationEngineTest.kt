@@ -12,7 +12,7 @@ internal class SimulationEngineTest {
     fun `GrassField integration`() {
         val args = "f b r l f f r r f f f f f f f f"
         val directions: Iterable<MoveDirection> = OptionsParser.parse(args)
-        val map: IWorldMap = GrassField(10)
+        val map: AbstractorWorldMap = GrassField(10)
         val positions = listOf(Vector2d(2, 2), Vector2d(3, 4))
 
         for (elem in positions) {
@@ -22,15 +22,15 @@ internal class SimulationEngineTest {
         val engine: IEngine = SimulationEngine(directions, map)
         engine.run()
         print(map.toString())
-        assertTrue(map.isOccupied(Vector2d(3, 7)))
-        assertTrue(map.isOccupied(Vector2d(2, -1)))
+        assertTrue(Vector2d(3,7) in map)
+        assertTrue(Vector2d(2,-1) in map)
     }
 
     @Test
     fun `Rectangular map integration`() {
         val args = "f b r l f f r r f f f f f f f f"
         val directions: Iterable<MoveDirection> = OptionsParser.parse(args)
-        val map: IWorldMap = RectangularMap(10, 5)
+        val map: AbstractorWorldMap = RectangularMap(10, 5)
         val positions = listOf(Vector2d(2, 2), Vector2d(3, 4))
 
         for (elem in positions) {
@@ -40,13 +40,13 @@ internal class SimulationEngineTest {
         val engine: IEngine = SimulationEngine(directions, map)
         engine.run()
         print(map.toString())
-        assertTrue(map.isOccupied(Vector2d(3, 4)))
-        assertTrue(map.isOccupied(Vector2d(2, 0)))
-        assertFalse(map.isOccupied(Vector2d(2, 2)))
-        assertFalse(map.isOccupied(Vector2d(2, 4)))
-        assertFalse(map.isOccupied(Vector2d(5, 6)))
-        assertFalse(map.isOccupied(Vector2d(8, 7)))
-        assertFalse(map.isOccupied(Vector2d(8, 7)))
+        assertTrue(Vector2d(3,4) in map)
+        assertTrue(Vector2d(2,0) in map)
+        assertFalse(Vector2d(2,2) in map)
+        assertFalse(Vector2d(2,4) in map)
+        assertFalse(Vector2d(5,6) in map)
+        assertFalse(Vector2d(8,7) in map)
+        assertFalse(Vector2d(8,7) in map)
     }
 
     @Test

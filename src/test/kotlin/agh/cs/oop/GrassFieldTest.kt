@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.math.sqrt
 import kotlin.test.assertFailsWith
+import kotlin.random.Random
 
 internal class GrassFieldTest {
     /**
@@ -12,7 +13,7 @@ internal class GrassFieldTest {
     fun getGrass(map: GrassField, maxi: Int): Vector2d {
         for (i in 0 until maxi) {
             for (j in 0 until maxi) {
-                if (map.isOccupied(Vector2d(i, j))) return Vector2d(i, j)
+                if (Vector2d(i,j) in map) return Vector2d(i,j)
             }
         }
         throw Exception("No grass in this map :(")
@@ -27,7 +28,7 @@ internal class GrassFieldTest {
         var counter = 0
         for (i in 0 until maxi) {
             for (j in 0 until maxi) {
-                if (map.isOccupied(Vector2d(i, j))) counter++
+                if (Vector2d(i,j) in map) counter++
             }
         }
 
@@ -71,17 +72,13 @@ internal class GrassFieldTest {
     }
 
     @Test
-    fun isOccupied() {
+    fun `in operator`() {
         val map = GrassField(10)
 
         var animal_1_1 = Animal(map = map, position = Vector2d(1, 1))
         map.place(animal_1_1)
-        assertTrue(map.isOccupied(Vector2d(1, 1)), "Smth terribly wrong")
-        assertFalse(
-            map.isOccupied(Vector2d(2, 4)) && map.objectAt(Vector2d(2, 4))?.javaClass == Animal::class.java,
-            "There's shouldn't be an Animal"
-        )
-
+        assertTrue(Vector2d(1,1) in map,"Smth terribly wrong")
+        assertFalse(Vector2d(-10,-10) in map, "There's shouldn't be anything")
     }
 
     @Test
@@ -91,7 +88,7 @@ internal class GrassFieldTest {
 
         var animal_1 = Animal(map = map, position = grass_pos)
         map.place(animal_1)
-        assertEquals(animal_1, map.objectAt(position = grass_pos))
+        assertEquals(map[grass_pos], animal_1)
     }
 
     @Test
@@ -105,7 +102,7 @@ internal class GrassFieldTest {
 
         animal_moving.move(MoveDirection.FORWARD)
 
-        assertEquals(map.objectAt(animal_moving.position), animal_moving)
+        assertTrue(map[animal_moving.position] == animal_moving)
 
         animal_moving.move(MoveDirection.RIGHT)
         animal_moving.move(MoveDirection.FORWARD)
@@ -113,6 +110,7 @@ internal class GrassFieldTest {
         animal_moving.move(MoveDirection.BACKWARD)
 
         print(map)
-        assertTrue(map.isOccupied(Vector2d(2, -1)))
+        assertTrue(Vector2d(2,-1) in map)
+
     }
 }
